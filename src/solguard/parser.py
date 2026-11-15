@@ -689,8 +689,8 @@ def _parse_state_variables(
         if not decl or decl.startswith(_IGNORED_STATE_PREFIXES):
             continue
 
-        # Strip initializer `= ...`
-        lhs = decl.split("=", 1)[0].strip()
+        # Strip initializer `= ...` without splitting `mapping(K => V)`
+        lhs = re.split(r"=(?!>)", decl, maxsplit=1)[0].strip()
         if not lhs:
             continue
 
